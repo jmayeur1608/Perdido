@@ -40,7 +40,12 @@ public class Talismane extends POStagger {
 	private String _languagePack = "";
 	
 	
-	
+	/**
+	 * 
+	 * @param installDirectory
+	 * @param lang
+	 * @param languagePack
+	 */
 	public Talismane(String installDirectory, String lang, String languagePack) {
 		super(installDirectory, lang, "talismane");
 		_languagePack = languagePack;
@@ -52,7 +57,6 @@ public class Talismane extends POStagger {
 	 * launch the Talismane POS analyser
 	 * @param inputContent					input file to tag
 	 * @param outputFile				path of the output file
-	 * @param uriTalismane			uri of talismane
 	 * @throws Exception
 	 */
 	@Override
