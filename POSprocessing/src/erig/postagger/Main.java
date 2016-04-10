@@ -21,39 +21,54 @@
 package erig.postagger;
 
 
-
+/**
+ * This class shows a simple example of how we can use the POSTagger class
+ * @author lmoncla
+ *
+ */
 public class Main {
 
 	 public static void main(String[] args) {
 		 
 		 
+		 String URIPOStagger = ""; // add the URI to the install directory of the POS tagger
+		 String lang = "French";
+		 
+		 String URIOutputFile = ""; // add the URI of the output file
+		 
+		 
 		 POStagger pos = null;
 			
+		//pos = new Freeling(URIPOStagger,lang);
+		//pos = new Talismane(URIPOStagger,lang);
+		pos = new Treetagger(URIPOStagger,lang);
 			
-		//pos = new Freeling("","French");
-
-		//pos = new Talismane("/Users/lmoncla/Programme/Talismane/talismane-2.4.7b/talismane-core-2.4.7b.jar","French");
-
-		pos = new Treetagger("/Users/lmoncla/Programme/TreeTagger3.2","French");
-			
-		
+	
 		
 		try {
-			pos.run("Ceci est un test", "/Users/lmoncla/Programme/Unitex3.1beta/webService/output/test.txt");
 			
-			//pos.loadTags();
+			pos.run("Ceci est un test", URIOutputFile);
 			
-			
-			
-			String pivot = pos.tagger2pivot("/Users/lmoncla/Programme/Unitex3.1beta/webService/output/test.txt");
+			//create the string containing the result of the POS tagging with the pivot tags
+			String pivot = pos.tagger2pivot(URIOutputFile);
 			
 			
+			System.out.println("pivot : " +pivot);
+			/* 
+			pivot : Ceci	PRO:DEM	ceci
+			est	VER:pres	être
+			un	DET:ART	un
+			test	NOM	test
+			*/
+			
+			//turn the result into the Unitex format
 			String result = pos.tagger2unitex(pivot);
-			
-			System.out.println("tags : " +pos.getTags().toString());
+		
 			
 			System.out.println("result : " +result);
+			//result : {Ceci,ceci.PRO+Pdem} {est,être.V} {un,un.DET+ART} {test,test.N} 
 			
+		
 			
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
