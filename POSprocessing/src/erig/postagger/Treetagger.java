@@ -30,18 +30,19 @@ import erig.tools.StringTools;
 
 
 /**
- * Annotation class : provide methods to execute POS taggers and cascade of transducers (Cassys)
+ * Treetagger class : provide methods to execute Treetagger POS taggers
  * @author Ludovic Moncla
  * @version 1.0
  */
 public class Treetagger extends POStagger {
 	
 	
-	
-	
-	//private static Hashtable<String, String> _tag = new Hashtable<String, String>();
-	
-	
+
+	/**
+	 * 
+	 * @param installDirectory
+	 * @param lang
+	 */
 	public Treetagger(String installDirectory, String lang)
 	{
 		super(installDirectory, lang, "treetagger");
@@ -51,21 +52,14 @@ public class Treetagger extends POStagger {
 	
 	/**
 	 * launch the Treetagger POS analyser
-	 * @param content				content to tag
-	 * @param output				path of the output file
-	 * @param lang					value : French or Spanish or Italian
-	 * @param uriTreeTagger			uri of treetagger
+	 * @param inputContent				content to tag
+	 * @param outputFile				path of the output file
 	 * @throws Exception
 	 */
 	@Override
 	public void run(String inputContent, String outputFile) throws Exception {
 
-		//System.out.println("Begin run treetagger");
-
-		
-		//content = content.replaceAll("\"", "");
-		
-		
+	
 		Runtime runtime = Runtime.getRuntime();
 		Process proc;
 
@@ -79,16 +73,19 @@ public class Treetagger extends POStagger {
 		proc = runtime.exec(cmd);
 		proc.waitFor();
 
-		//System.out.println("End run treetagger");
 	
 	}
 	
 	
+	/**
+	 * 
+	 * @param inputFile				path of the input file
+	 * 
+	 */
 	@Override
 	public String tagger2pivot(String inputFile) throws Exception {
 
-		//System.out.println("Begin tagger2pivot treetagger");
-
+		
 		InputStream ips = new FileInputStream(inputFile);
 		InputStreamReader ipsr = new InputStreamReader(ips);
 		BufferedReader br = new BufferedReader(ipsr);
@@ -106,11 +103,9 @@ public class Treetagger extends POStagger {
 			{
 				String str[] = line.split("\t");
 	
-				//System.out.println("line : " + line);
-	
+				
 				token = str[0];// .toLowerCase();
 				pos = str[1];
-
 				
 				
 				if(str.length>2) //if a lemma exists
@@ -156,14 +151,11 @@ public class Treetagger extends POStagger {
 			
 				outputPivot += token + "\t" + pos + "\t" + lemma +"\n";
 				
-
 			}
 		}
 		
 		br.close();
 	
-		//System.out.println("End tagger2pivot treetagger");
-		
 		return outputPivot;
 	}
 

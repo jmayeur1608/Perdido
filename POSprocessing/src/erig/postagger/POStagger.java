@@ -28,7 +28,7 @@ import java.util.Hashtable;
 
 
 /**
- * 
+ * POStagger class : provides methods to execute POS taggers
  * @author Ludovic Moncla
  */
 public abstract class POStagger {
@@ -44,6 +44,7 @@ public abstract class POStagger {
 	 * 
 	 * @param installDirectory
 	 * @param lang
+	 * @param POStaggerName
 	 */
 	public POStagger(String installDirectory, String lang, String POStaggerName)
 	{
@@ -76,7 +77,7 @@ public abstract class POStagger {
 
 	/**
 	 * load the list of POS tags
-	 * @param uri 		path of the containing the POS tags
+	 * @param uri 		path of the file containing the POS tags
 	 */
 	protected void loadTags() throws Exception
 	{
@@ -84,8 +85,7 @@ public abstract class POStagger {
 		Class<?> currentClass = new Object() { }.getClass().getEnclosingClass();
 		InputStream ips = currentClass.getResourceAsStream("/resources/Tag_"+_POStaggerName+"_"+_lang);
 		
-		//InputStream ips = new FileInputStream("Tag_"+_POStaggerName+"_"+_lang);
-	
+		
 		InputStreamReader ipsr = new InputStreamReader(ips,"UTF-8");
 		BufferedReader br = new BufferedReader(ipsr);
 
@@ -93,7 +93,6 @@ public abstract class POStagger {
 		
 		while ((line = br.readLine()) != null) 
 		{
-		//	System.out.println("line : "+line);
 			String str[] = line.split(";");
 			
 			if(!str[1].equals("null"))
@@ -103,6 +102,8 @@ public abstract class POStagger {
 		}
 		ips.close();	 
 	}
+	
+	
 	
 	
 	/**
@@ -125,7 +126,12 @@ public abstract class POStagger {
 	}
 	
 	
-
+	/**
+	 * 
+	 * @param inputFile
+	 * @return String
+	 * @throws Exception
+	 */
 	public String tagger2unitex(InputStreamReader inputFile) throws Exception {
 		
 		String line = "";
@@ -145,10 +151,13 @@ public abstract class POStagger {
 	}
 
 	
-
+	/**
+	 * 
+	 * @param inputContent
+	 * @return String
+	 * @throws Exception
+	 */
 	public String tagger2unitex(String inputContent) throws Exception {
-		
-		//System.out.println("Begin tagger2unitex");
 		
 		
 		this.loadTags();
@@ -163,8 +172,6 @@ public abstract class POStagger {
 			
 			String str[] = line[i].split("\t");
 
-			//System.out.println("ligne : "+line[i]);
-			
 			
 			token = str[0];
 			pos = str[1];
@@ -174,11 +181,8 @@ public abstract class POStagger {
 			if(!_tags.get(pos).equals("null")) 
 			{
 				
-				//System.out.println("pass : "+_tags.get(pos));
+			
 				String st[]=_tags.get(pos).split(";");
-				
-				//valeur = StringTools.filtreString(valeur);
-				//lemme = StringTools.filtreString(lemme);
 				
 				
 				if(st!=null) 
@@ -210,14 +214,11 @@ public abstract class POStagger {
 			}
 
 		}
-		
-		
-		//System.out.println("End tagger2unitex");
+
 		
 		return result;
 		
 	}
-
 
 }
 
