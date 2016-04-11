@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.launching.macosx.MacOSXType/Java SE 6"/>
+	<classpathentry kind="lib" path="/Users/lmoncla/Export Eclipse/JAR/lib/jdom-2.0.4.jar"/>
+	<classpathentry kind="lib" path="/Users/lmoncla/Export Eclipse/JAR/lib/gson-2.2.4.jar"/>
+	<classpathentry kind="lib" path="/Users/lmoncla/Export Eclipse/JAR/lib/mail.jar"/>
+	<classpathentry kind="lib" path="/Users/lmoncla/Export Eclipse/JAR/lib/pdfbox-1.8.6.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
