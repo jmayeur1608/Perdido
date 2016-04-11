@@ -152,7 +152,7 @@ public abstract class POStagger {
 
 	
 	/**
-	 * 
+	 * tagger2unitex : turn pivot POS annotation into a unitex compliant format
 	 * @param inputContent
 	 * @return String
 	 * @throws Exception

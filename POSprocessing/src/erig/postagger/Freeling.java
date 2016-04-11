@@ -60,10 +60,8 @@ public class Freeling extends POStagger {
 
 	/**
 	 * launch the Freeling POS analyser
-	 * @param content				content to tag
-	 * @param output				path of the output file
-	 * @param lang					value : French or Spanish or Italian
-	 * @param uriTreeTagger			uri of treetagger
+	 * @param inputFile				path of the input file
+	 * @param outputFile			path of the output file
 	 * @throws Exception
 	 */
 	@Override
@@ -93,8 +91,6 @@ public class Freeling extends POStagger {
 	 */
 	@Override
 	public String tagger2pivot(String inputFile) throws Exception {
-
-		//System.out.println("Begin freeling2pivot");
 
 		InputStream ips = new FileInputStream(inputFile);
 		InputStreamReader ipsr = new InputStreamReader(ips);
@@ -139,8 +135,6 @@ public class Freeling extends POStagger {
 				else
 				{
 					
-					//System.out.println("line : " + line);
-		
 					token = str[1];
 					pos = str[3];
 					lemma = str[2];
@@ -155,7 +149,6 @@ public class Freeling extends POStagger {
 		
 		br.close();
 		
-		//System.out.println("End freeling2pivot");
 		return outputPivot;	
 	}
 
