@@ -28,12 +28,9 @@ import runner.DBSCAN;
 
 
 
-
-
 /**
- * Gazetteer class : provide some methods for toponyms resolution, query gazeteers and apply clustering methods.
+ * DensityClustering class : provides methods for clustering points using the spatial density
  * @author Ludovic Moncla
- * @version 1.0
  */
 public class DensityClustering {
 	
@@ -41,6 +38,12 @@ public class DensityClustering {
 	private static String _tablename = "";
 	private static Postgis _objPostgis = null;
 	
+	
+	/**
+	 * 
+	 * @param objPostgis
+	 * @param tablename 		name of the table of the postgis database
+	 */
 	public DensityClustering(Postgis objPostgis, String tablename) 
 	{
 		_tablename = tablename;
@@ -52,8 +55,8 @@ public class DensityClustering {
 	
 	
 	/**
-	 * clustering : create clusters of toponyms using a density based clustering method apply on a postgis database
-	 * @param tableName 		name of the table of the postgis database
+	 * runClustering : create clusters of toponyms using a density based clustering method (dbscan) applied on a postgis database
+	 * @throws Exception
 	 */
 	public void runClustering() throws Exception{
 		DBSCAN dbscan = new DBSCAN(0.1f, 2);
@@ -63,10 +66,13 @@ public class DensityClustering {
 	
 	
 	
+	
 	/**
-	 * bestCluster : choose the best cluster
-	 * @param tableName 		name of the table of the postgis database
-	 * @return int				number of the best cluster
+	 * selectBestCluster : choose the best cluster
+	 * @param objPostgis
+	 * @param tablename		name of the table of the postgis database
+	 * @return int : number of the best cluster
+	 * @throws Exception
 	 */
 	public static int selectBestCluster(Postgis objPostgis, String tablename) throws Exception{
 		int max = 0;

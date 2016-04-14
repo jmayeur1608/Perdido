@@ -29,9 +29,9 @@ import erig.elements.Toponyme;
 
 
 /**
- * Gazetteer class : provide some methods for toponyms resolution, query gazeteers and apply clustering methods.
+ * DuplicatePoints class : provides some methods to remove duplicate points comming from different gazetteers
  * @author Ludovic Moncla
- * @version 1.0
+
  */
 public class DuplicatePoints {
 	
@@ -42,7 +42,11 @@ public class DuplicatePoints {
 	}
 	
 	
-
+	/**
+	 * 
+	 * @param toponyms
+	 * @return
+	 */
 	public static Vector<Toponyme> removeDuplicatePoints(Vector<Toponyme> toponyms) 
 	{
 		
