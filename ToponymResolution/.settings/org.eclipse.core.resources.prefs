@@ -1,0 +1,10 @@
+eclipse.preferences.version=1
+encoding//src/erig/disambiguation/DensityClustering.java=UTF-8
+encoding//src/erig/disambiguation/DuplicatePoints.java=UTF-8
+encoding//src/erig/disambiguation/Subtyping.java=UTF-8
+encoding//src/erig/gazetteers/Gazetteer.java=UTF-8
+encoding//src/erig/gazetteers/Geonames.java=UTF-8
+encoding//src/erig/gazetteers/IGN.java=UTF-8
+encoding//src/erig/gazetteers/OSM.java=UTF-8
+encoding//src/erig/parsing/ParsingPerdidoTEI.java=UTF-8
+encoding//src/erig/resolution/ToponymResolution.java=UTF-8
