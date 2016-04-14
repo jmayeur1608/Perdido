@@ -28,7 +28,7 @@ import erig.elements.Toponyme;
 
 
 /**
- * Gazetteer class : provide some methods for toponyms resolution, query gazeteers and apply clustering methods.
+ * Gazetteer class : provides some methods for toponyms resolution and query gazeteers
  * @author Ludovic Moncla
  * @version 1.0
  */

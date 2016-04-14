@@ -34,14 +34,20 @@ import erig.elements.Toponyme;
 
 
 /**
- * Gazetteer class : provide some methods for toponyms resolution, query gazeteers and apply clustering methods.
+ * Geonames class : provides some methods for toponyms resolution from Geonames
  * @author Ludovic Moncla
- * @version 1.0
  */
 public class Geonames extends Gazetteer {
 	
 	private String _APIkey = "";
 	
+	/**
+	 * 
+	 * @param doStrictQuery
+	 * @param maxResults
+	 * @param lang
+	 * @param geonamesAPIkey
+	 */
 	public Geonames(boolean doStrictQuery, int maxResults, String lang, String geonamesAPIkey) {
 		super(doStrictQuery, maxResults, lang);
 		_gazetteerName = "Geonames";
@@ -49,12 +55,18 @@ public class Geonames extends Gazetteer {
 		// TODO Auto-generated constructor stub
 	}
 
+	
+
+	/**
+	 * searchToponym : geonames string query
+	 * @param toponymCandidate
+	 * @return the list of toponyms
+	 */
 	public Vector<Toponyme> searchToponym(String toponymCandidate) throws Exception
 	{
 		
 		Vector<Toponyme> toponyms = new Vector<Toponyme>();
 		
-		//System.out.println("username :"+_APIkey);
 		
 		WebService.setUserName(_APIkey); // add your username here
 		 
@@ -109,8 +121,7 @@ public class Geonames extends Gazetteer {
 		return toponyms;
 		
 	}
-	
-	
+
 	
 	
 }

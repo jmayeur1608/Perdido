@@ -35,20 +35,28 @@ import erig.elements.Toponyme;
 
 
 /**
- * Gazetteer class : provide some methods for toponyms resolution, query gazeteers and apply clustering methods.
+ * OSM class : provides some methods for toponyms resolution from openstreetmap
  * @author Ludovic Moncla
- * @version 1.0
  */
 public class OSM extends Gazetteer {
 	
 	
-	
+	/**
+	 * 
+	 * @param doStrictQuery
+	 * @param maxResults
+	 * @param lang
+	 */
 	public OSM(boolean doStrictQuery, int maxResults, String lang) {
 		super(doStrictQuery, maxResults, lang);
 		_gazetteerName = "OpenStreetMap";
 		// TODO Auto-generated constructor stub
 	}
 
+	/**
+	 * 
+	 * @param toponymCandidate
+	 */
 	public Vector<Toponyme> searchToponym(String toponymCandidate) throws Exception
 	{
 		

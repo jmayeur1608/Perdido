@@ -35,9 +35,8 @@ import erig.toponymDiscovery.ToponymInfo;
 
 
 /**
- * Gazetteer class : provide some methods for toponyms resolution, query gazetteers and apply clustering methods.
+ * IGN class : provides some methods for toponyms resolution from national gazetteer (IGN)
  * @author Ludovic Moncla
- * @version 1.0
  */
 public class IGN extends Gazetteer {
 	
@@ -47,7 +46,12 @@ public class IGN extends Gazetteer {
 	private Postgis _objPostgis;
 			
 		
-			
+	/**
+	 * 
+	 * @param doStrictQuery
+	 * @param maxResults
+	 * @param lang
+	 */
 	public IGN(boolean doStrictQuery, int maxResults, String lang) {
 		super(doStrictQuery, maxResults, lang);
 		_gazetteerName = "IGN";
@@ -55,16 +59,28 @@ public class IGN extends Gazetteer {
 	}
 
 	
+	/**
+	 * 
+	 * @param doStrictQuery
+	 * @param maxResults
+	 * @param lang
+	 * @param ign_bdd_tables
+	 * @param geom
+	 * @param objPostgis
+	 */
 	public IGN(boolean doStrictQuery, int maxResults, String lang, String[] ign_bdd_tables, String geom, Postgis objPostgis) {
 		super(doStrictQuery, maxResults, lang);
 		_gazetteerName = "IGN";
 		_ign_bdd_tables = ign_bdd_tables;
 		_geom = geom;
 		_objPostgis = objPostgis;
-		// TODO Auto-generated constructor stub
 	}
 
 	
+	/**
+	 * 
+	 * @param toponymCandidate
+	 */
 	public Vector<Toponyme> searchToponym(String toponymCandidate) throws Exception
 	{
 		
