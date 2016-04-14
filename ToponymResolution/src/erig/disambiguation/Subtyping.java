@@ -26,11 +26,9 @@ import erig.elements.Toponyme;
 
 
 
-
 /**
- * Gazetteer class : provide some methods for toponyms resolution, query gazeteers and apply clustering methods.
+ * Subtyping class : provides some methods for toponyms disambiguation using the subtyping method
  * @author Ludovic Moncla
- * @version 1.0
  */
 public class Subtyping {
 	
@@ -43,25 +41,32 @@ public class Subtyping {
 		
 	}
 	
+	
 	/**
-	 * interogate ontology to determine if a string is a geo feature
+	 * Returns true if the feature is geographical, interrogates ontologies to determine if a string is a geo feature
 	 * @param feature
+	 * @param lang
 	 * @return true or false
 	 */
 	public static boolean isFeatureGeo(String feature, String lang)
 	{
-		//objectif interroger une ressource externe de type ontologie, ex DBPEDIA,...
+		//TODO interroger une ressource externe de type ontologie, ex DBPEDIA,...
 		System.err.println("_termGeo.size = "+_termGeo.size());
 		if(_termGeo.isEmpty())
 			initTermGeo(lang);
 		
 		boolean isGeo = _termGeo.contains(feature.toLowerCase());
-		
-
+	
 
 		return isGeo;
 	}
 	
+	
+	/**
+	 * Returns true if the toponyms have the same feature
+	 * @param toponyms
+	 * @return true if the toponym in parameter has the same feature
+	 */
 	public static boolean isSameFeature(Vector<Toponyme> toponyms)
 	{
 	
@@ -73,6 +78,13 @@ public class Subtyping {
 		return false;
 	}
 	
+	
+	/**
+	 * 
+	 * @param toponyms
+	 * @param featureText
+	 * @return
+	 */
 	public static Vector<Toponyme> checkFeature(Vector<Toponyme> toponyms, String featureText)
 	{
 
@@ -90,6 +102,11 @@ public class Subtyping {
 	}
 	
 	
+	/**
+	 * Checks if the feature associated with the toponym is compliant with the feature associated in the gazetteer.
+	 * @param toponym
+	 * @return
+	 */
 	public static boolean checkFeature(Toponyme toponym)
 	{
 		
@@ -537,7 +554,6 @@ public class Subtyping {
 					
 					if(feature.contains("pic"))
 						return true;
-					
 				}
 			}
 		}
@@ -547,6 +563,11 @@ public class Subtyping {
 	}
 	
 	
+	
+	/**
+	 * Initializes the geographical terms. Must be replaced by an ontology
+	 * @param lang
+	 */
 	public static void initTermGeo(String lang)
 	{
 		

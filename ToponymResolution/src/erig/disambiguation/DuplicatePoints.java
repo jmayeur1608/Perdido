@@ -29,7 +29,7 @@ import erig.elements.Toponyme;
 
 
 /**
- * DuplicatePoints class : provides some methods to remove duplicate points comming from different gazetteers
+ * DuplicatePoints class : provides some methods to remove duplicate points coming from different gazetteers
  * @author Ludovic Moncla
 
  */
@@ -43,9 +43,9 @@ public class DuplicatePoints {
 	
 	
 	/**
-	 * 
-	 * @param toponyms
-	 * @return
+	 * Returns the list of toponyms without duplicate points coming from different gazetteers
+	 * @param toponyms			Vector<Toponyme>
+	 * @return Vector<Toponyme>
 	 */
 	public static Vector<Toponyme> removeDuplicatePoints(Vector<Toponyme> toponyms) 
 	{
@@ -69,11 +69,9 @@ public class DuplicatePoints {
 				{
 					if(notAdded[j])
 					{
-						//System.err.println("toponyms.get(i).getGid() : "+toponyms.get(i).getGid()+" + toponyms.get(j).getGid() "+toponyms.get(j).getGid()+" ");
 						
 						if(toponyms.get(i).getGid() != toponyms.get(j).getGid())
 						{
-							//System.err.println("toponyms.get(i).getId() : "+toponyms.get(i).getId()+" + toponyms.get(j).getId() "+toponyms.get(j).getId()+" ");
 							
 							if(toponyms.get(i).getId() == toponyms.get(j).getId())
 							{
@@ -87,7 +85,6 @@ public class DuplicatePoints {
 								}
 								else
 								{
-									//System.out.println("distance < 7000 ("+distance+") : "+toponyms.get(i).getId()+" - "+toponyms.get(j).getId());
 									notAdded[j] = false;
 								}
 							}
