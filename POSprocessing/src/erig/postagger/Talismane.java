@@ -30,7 +30,7 @@ import erig.tools.StringTools;
 
 
 /**
- * Talismane class : provide methods to execute Talismane POS tagger
+ * Talismane class : provides methods to execute Talismane POS tagger
  * @author Ludovic Moncla
  * @version 1.0
  */

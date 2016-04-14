@@ -30,7 +30,7 @@ import erig.tools.StringTools;
 
 
 /**
- * Treetagger class : provide methods to execute Treetagger POS taggers
+ * Treetagger class : provides methods to execute Treetagger POS taggers
  * @author Ludovic Moncla
  * @version 1.0
  */
