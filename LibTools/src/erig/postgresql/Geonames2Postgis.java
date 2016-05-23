@@ -31,6 +31,8 @@ import java.sql.Statement;
 
 public class Geonames2Postgis {
 
+	
+	//commentaire de test
 	public static void main(String[] args) {
 
 		try {
