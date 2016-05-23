@@ -25,6 +25,8 @@ package erig.elements;
  * Coord class
  * @author Ludovic Moncla
  */
+
+//commentaire de test
 public class Coord {
 	 
    
