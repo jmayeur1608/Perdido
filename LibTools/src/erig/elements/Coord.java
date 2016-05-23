@@ -26,9 +26,6 @@ package erig.elements;
  * @author Ludovic Moncla
  */
 
-// commentaire de test
-
-//test
 
 
 public class Coord {
