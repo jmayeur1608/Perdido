@@ -173,8 +173,8 @@ public class StringTools  {
 		
 		//content = content.replaceAll("(http|https|ftp|mailto):(\\S*)", " ");
 		
-		content = content.replaceAll(" & ", " et ");
-		content = content.replaceAll("&", " et ");
+		content = content.replaceAll(" & ", " and ");
+		content = content.replaceAll("&", " and ");
 		content = content.replaceAll("/", " ");
 		content = content.replaceAll("€", "euros");
 
@@ -250,7 +250,7 @@ public class StringTools  {
 	 * @param in
 	 * @return
 	 */
-	public String stripNonValidXMLCharacters(String in) { 
+	public static String stripNonValidXMLCharacters(String in) { 
         StringBuffer out = new StringBuffer(); // Used to hold the output. 
         char current; // Used to reference the current character. 
  

@@ -99,6 +99,31 @@ public class UnitexTools {
 	
 			String resultXML = "<?xml version='1.0' encoding='UTF-8'?><TEI xmlns='http://www.tei-c.org/ns/1.0\'><s>"; // XML
 			
+			resultXML += txt2xmlLike(inputFile);
+			
+			
+			resultXML = resultXML.replaceAll("\0", "");
+			resultXML += "</s></TEI>";
+		
+			//on transforme le fichier txt issu d'unitex au format xml
+			FileTools.createFile(outputFile, resultXML);
+		}
+		catch(Exception e)
+		{
+			System.err.println(e.toString());
+		}
+		//System.out.println(" ** Fin unitex2tei **");
+	}
+		
+	
+	public static String txt2xmlLike(String inputFile) {
+		
+		String resultXML = "";//"<?xml version='1.0' encoding='UTF-8'?><TEI xmlns='http://www.tei-c.org/ns/1.0\'><s>"; // XML
+		
+		//System.out.println(" ** Debut unitex2tei **");
+		try{
+	
+			
 			InputStream ips = new FileInputStream(inputFile);
 		
 			InputStreamReader ipsr = new InputStreamReader(ips, "UTF-8");
@@ -120,19 +145,20 @@ public class UnitexTools {
 				resultXML += sub;
 			}
 			
-			resultXML = resultXML.replaceAll("\0", "");
-			resultXML += "</s></TEI>";
+			//resultXML = resultXML.replaceAll("\0", "");
+			//resultXML += "</s></TEI>";
 		
 			//on transforme le fichier txt issu d'unitex au format xml
-			FileTools.createFile(outputFile, resultXML);
+			//FileTools.createFile(outputFile, resultXML);
 		}
 		catch(Exception e)
 		{
 			System.err.println(e.toString());
 		}
 		//System.out.println(" ** Fin unitex2tei **");
-	}
 		
+		return resultXML;
+	}
 	
 
 }

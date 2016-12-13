@@ -40,7 +40,7 @@ public class Toponyme implements Serializable{
 	 
 	private int _gid = 0;
     private int _id = 0;   
-    private int _iid = 0;
+    private int _iid = -1;
     private int _idPath = -1;
     private String _value = "";
     private String _name = "";

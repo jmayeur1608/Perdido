@@ -103,7 +103,21 @@ public class FileTools  {
 	}
 	
 	
-	
+public static void updateFileTxt(String name, String content) {
+		
+		try {
+
+			
+			Writer out = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(name,true), "UTF-8"));		
+			out.append(content);
+			
+
+			out.flush();
+			out.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} 
+	}
 	
 	
 	/*
@@ -151,7 +165,7 @@ public class FileTools  {
 			br.close();
 		}
 		catch (Exception e) {
-			e.printStackTrace();
+			//e.printStackTrace();
 		}
 		return content;
 	}
