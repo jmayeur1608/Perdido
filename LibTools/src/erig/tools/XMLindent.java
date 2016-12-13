@@ -30,7 +30,7 @@ public class XMLindent {
 
 		 public static void main(String args[]) throws Exception {
 			 
-			 String folder = "/Users/lmoncla/Desktop/testXML/";
+			 String folder = "/home/lmoncla/Desktop/testXML/";
 			 
 			 File di = new File(folder);
 			 String fl[] = di.list();

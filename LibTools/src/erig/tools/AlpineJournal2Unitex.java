@@ -78,7 +78,7 @@ public class AlpineJournal2Unitex  {
 		ips.close();	 
 		
 	
-		String folder = "/Users/lmoncla/YACCA/test/test/";
+		String folder = "/home/lmoncla/YACCA/test/test/";
 		File fl[] = FileTools.listFiles(folder);
 	
 		for (int j = 0; j < fl.length; j++) {
