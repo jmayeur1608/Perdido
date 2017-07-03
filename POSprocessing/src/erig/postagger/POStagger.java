@@ -177,6 +177,9 @@ public abstract class POStagger {
 			pos = str[1];
 			lemma = str[2];
 			
+			//System.out.println("token : "+token);
+			//System.out.println("pos   : "+pos);
+			//System.out.println("lemma : "+lemma);
 			
 			if(!_tags.get(pos).equals("null")) 
 			{
@@ -221,5 +224,4 @@ public abstract class POStagger {
 	}
 
 }
-
 

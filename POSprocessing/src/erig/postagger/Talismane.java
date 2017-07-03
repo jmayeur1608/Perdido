@@ -22,6 +22,7 @@ package erig.postagger;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
@@ -38,6 +39,8 @@ public class Talismane extends POStagger {
 	
 	
 	private String _languagePack = "";
+	//JMA 23/06/2017 ajout fichier conf pour version talismane 4.1.0
+	private String _fichierConf = "";
 	
 	
 	/**
@@ -46,9 +49,11 @@ public class Talismane extends POStagger {
 	 * @param lang
 	 * @param languagePack
 	 */
-	public Talismane(String installDirectory, String lang, String languagePack) {
+	//JMA 23/06/2017 ajout fichier conf pour version talismane 4.1.0
+	public Talismane(String installDirectory, String lang, String languagePack, String fichierConf) {
 		super(installDirectory, lang, "talismane");
 		_languagePack = languagePack;
+		_fichierConf = fichierConf;
 	}
 
 
@@ -65,18 +70,67 @@ public class Talismane extends POStagger {
 		//System.out.println("Begin run talismane");
 
 		Runtime runtime = Runtime.getRuntime();
-		Process proc;
+		final Process proc;
 
 		String[] commands = {
 			"bash",
 			"-c",
-			"java -Xmx1024M -jar "+ _installDirectory +" command=analyse endModule=postag inFile="+inputFile+" outFile="+outputFile+" encoding=UTF-8 languagePack="+_languagePack+""};
-	
+//			"java -Xmx1024M -jar "+ _installDirectory +" command=analyse endModule=postag inFile="+inputFile+" outFile="+outputFile+" encoding=UTF-8 languagePack="+_languagePack+""};
+// JMA 23/06/2017 commande pour talismane 4.1.0	
+		   // "java -Xmx1G -jar -Dconfig.file="+ _fichierConf +" "+ _installDirectory +" encoding=UTF8 inFile="+inputFile+" outFile="+outputFile+" "}; 
+      		"java -Xmx1G -Dconfig.file="+ _fichierConf +" -jar "+ _installDirectory +" --analyse --endModule=posTagger --encoding=UTF8 --inFile="+inputFile+" --outFile="+outputFile+" "};
+		
+		//String [] commandee = {"bash","-c","pwd > /home/jmayeur/chemin.txt"};
+		//proc = runtime.exec(commandee);
+		//proc.waitFor();
+		//System.out.println(commandee);
+		
+		System.out.println("_commande : java -Xmx1G -Dconfig.file="+ _fichierConf +" -jar "+ _installDirectory +" --analyse --endModule=posTagger --encoding=UTF8 --inFile="+inputFile+" --outFile="+outputFile);
 		proc = runtime.exec(commands);
+		
+		// Consommation de la sortie standard de l'application externe dans un Thread separe
+		new Thread() {
+			public void run() {
+				try {
+					BufferedReader reader = new BufferedReader(new InputStreamReader(proc.getInputStream()));
+					String line = "";
+					try {
+						while((line = reader.readLine()) != null) {
+							// Traitement du flux de sortie de l'application si besoin est
+						}
+					} finally {
+						reader.close();
+					}
+				} catch(IOException ioe) {
+					ioe.printStackTrace();
+				}
+			}
+		}.start();
+
+		// Consommation de la sortie d'erreur de l'application externe dans un Thread separe
+		new Thread() {
+			public void run() {
+				try {
+					BufferedReader reader = new BufferedReader(new InputStreamReader(proc.getErrorStream()));
+					String line = "";
+					try {
+						while((line = reader.readLine()) != null) {
+							// Traitement du flux d'erreur de l'application si besoin est
+						}
+					} finally {
+						reader.close();
+					}
+				} catch(IOException ioe) {
+					ioe.printStackTrace();
+				}
+			}
+		}.start();
+		
 		proc.waitFor();
 		
 		System.out.println("_languagePack : "+_languagePack);
 		System.out.println("_installDirectory : "+_installDirectory);
+		System.out.println("_fichierConf : "+_fichierConf);
 		System.out.println("inputFile : "+inputFile);
 		System.out.println("outputFile : "+outputFile);
 	
@@ -144,5 +198,4 @@ public class Talismane extends POStagger {
 	
 	
 }
-
 

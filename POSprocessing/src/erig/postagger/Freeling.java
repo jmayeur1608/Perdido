@@ -22,6 +22,7 @@ package erig.postagger;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
@@ -70,16 +71,62 @@ public class Freeling extends POStagger {
 		//System.out.println("Begin launchFreeling");
 		
 		Runtime runtime = Runtime.getRuntime();
-		Process proc;
+		final Process proc;
 	
-		String cmd_freeling = _installDirectory + " -f "+this._lang+".cfg --noloc --inpf plain --outf tagged <"+ inputFile+" >"+ outputFile;
+		//String cmd_freeling = _installDirectory + " -f "+this._lang+".cfg --noloc --inpf plain --outf tagged <"+ inputFile+" >"+ outputFile;
+		//JMA 26/06/2017
 		
+		String[] commands = {
+				"bash",
+				"-c",
+				_installDirectory + " -f /usr/share/freeling/config/"+this._lang+".cfg --noloc --inplv text --outlv tagged <"+ inputFile+" >"+ outputFile+" "};		
+		//String cmd_freeling = _installDirectory + " -f /usr/share/freeling/config/"+this._lang+".cfg --noloc --outlv tagged <"+ inputFile+" >"+ outputFile;
 		//System.err.println("cmd : "+cmd_freeling);
 		
-		proc = runtime.exec(cmd_freeling);
+		proc = runtime.exec(commands);
+		
+		// Consommation de la sortie standard de l'application externe dans un Thread separe
+				new Thread() {
+					public void run() {
+						try {
+							BufferedReader reader = new BufferedReader(new InputStreamReader(proc.getInputStream()));
+							String line = "";
+							try {
+								while((line = reader.readLine()) != null) {
+									// Traitement du flux de sortie de l'application si besoin est
+								}
+							} finally {
+								reader.close();
+							}
+						} catch(IOException ioe) {
+							ioe.printStackTrace();
+						}
+					}
+				}.start();
+
+				// Consommation de la sortie d'erreur de l'application externe dans un Thread separe
+				new Thread() {
+					public void run() {
+						try {
+							BufferedReader reader = new BufferedReader(new InputStreamReader(proc.getErrorStream()));
+							String line = "";
+							try {
+								while((line = reader.readLine()) != null) {
+									// Traitement du flux d'erreur de l'application si besoin est
+								}
+							} finally {
+								reader.close();
+							}
+						} catch(IOException ioe) {
+							ioe.printStackTrace();
+						}
+					}
+				}.start();
+		
+		
 		proc.waitFor();
 
-		//System.out.println("End launchFreeling");
+		System.out.println("End launchFreeling");
 	
 	}
 	
@@ -115,6 +162,17 @@ public class Freeling extends POStagger {
 				{
 					pos = str[2].substring(0, 2);
 				}
+				else {
+				//JMA 27/06/2017
+				 if(pos.equals("P"))
+				  {
+					pos = str[2].substring(0, 2);
+					if(!pos.equals("PR")&&!pos.equals("PX"))
+					{
+						pos = str[2].substring(0, 1);		
+					}
+				  }
+				}
 				
 				if(str[0].contains("_"))
 				{ 
@@ -135,9 +193,14 @@ public class Freeling extends POStagger {
 				else
 				{
 					
-					token = str[1];
-					pos = str[3];
-					lemma = str[2];
+					//token = str[1];
+					//pos = str[3];
+					//lemma = str[2];
+					
+					//JMA 27/06/2017
+					token = str[0];
+					//pos = str[2];
+					lemma = str[1];
 					
 					token = StringTools.filtreString(token);
 					lemma = StringTools.filtreString(lemma);
@@ -153,5 +216,4 @@ public class Freeling extends POStagger {
 	}
 
 }
-
 
