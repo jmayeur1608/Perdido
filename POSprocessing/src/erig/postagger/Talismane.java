@@ -56,6 +56,10 @@ public class Talismane extends POStagger {
 		_fichierConf = fichierConf;
 	}
 
+	public Talismane(String installDirectory, String lang, String languagePack) {
+		super(installDirectory, lang, "talismane");
+		_languagePack = languagePack;
+	}
 
 
 	/**
@@ -71,22 +75,31 @@ public class Talismane extends POStagger {
 
 		Runtime runtime = Runtime.getRuntime();
 		final Process proc;
-
-		String[] commands = {
+	
+		if (_fichierConf == ""){
+		 String[] commands = {
 			"bash",
 			"-c",
-//			"java -Xmx1024M -jar "+ _installDirectory +" command=analyse endModule=postag inFile="+inputFile+" outFile="+outputFile+" encoding=UTF-8 languagePack="+_languagePack+""};
-// JMA 23/06/2017 commande pour talismane 4.1.0	
-		   // "java -Xmx1G -jar -Dconfig.file="+ _fichierConf +" "+ _installDirectory +" encoding=UTF8 inFile="+inputFile+" outFile="+outputFile+" "}; 
-      		"java -Xmx1G -Dconfig.file="+ _fichierConf +" -jar "+ _installDirectory +" --analyse --endModule=posTagger --encoding=UTF8 --inFile="+inputFile+" --outFile="+outputFile+" "};
-		
+			"java -Xmx1024M -jar "+ _installDirectory +" command=analyse endModule=postag inFile="+inputFile+" outFile="+outputFile+" encoding=UTF-8 languagePack="+_languagePack+""};
+		 proc = runtime.exec(commands); 
+		}
+		else {
+		 String[] commands = {
+					"bash",
+					"-c",
+            		// JMA 23/06/2017 commande pour talismane 4.1.0	
+				   // "java -Xmx1G -jar -Dconfig.file="+ _fichierConf +" "+ _installDirectory +" encoding=UTF8 inFile="+inputFile+" outFile="+outputFile+" "}; 
+		      		"java -Xmx1G -Dconfig.file="+ _fichierConf +" -jar "+ _installDirectory +" --analyse --endModule=posTagger --encoding=UTF8 --inFile="+inputFile+" --outFile="+outputFile+" "};
+		 proc = runtime.exec(commands);
+			
+		}
 		//String [] commandee = {"bash","-c","pwd > /home/jmayeur/chemin.txt"};
 		//proc = runtime.exec(commandee);
 		//proc.waitFor();
 		//System.out.println(commandee);
 		
 		System.out.println("_commande : java -Xmx1G -Dconfig.file="+ _fichierConf +" -jar "+ _installDirectory +" --analyse --endModule=posTagger --encoding=UTF8 --inFile="+inputFile+" --outFile="+outputFile);
-		proc = runtime.exec(commands);
+		
 		
 		// Consommation de la sortie standard de l'application externe dans un Thread separe
 		new Thread() {
